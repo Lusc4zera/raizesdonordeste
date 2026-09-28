@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raízes do Nordeste — Sabor de raiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf6ee;
+  --surface: #fff9f2;
+  --surface2: #f5ebe0;
+  --border: #a5610d;
+  --accent: #c8420a;      
+  --accent2: #e8a820;     
+  --accent3: #5c8a3c;     
+  --dark: #2c2119;
+  --text: #2e2118;
+  --text-dim: #7c7236;
+  --text-mid: #7c7236;
+  --red: #c8420a;
+  --green: #5c8a3c;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 20px rgba(44,26,14,.08);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Inter',sans-serif;
+  background:#f0e6d6;
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── TELA DE SISTEMA ── */
+.screen { display:none; min-height:100vh; flex-direction:column; background:var(--bg); }
+.screen.active { display:flex; }
+
+/* ── SHARED ── */
+.topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; position:sticky; top:0; z-index:100;
+  background:rgba(253,246,238,.95); backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--border);
+}
+.topbar-logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--accent); }
+.topbar-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--dark); }
+.back-btn { background:none; border:none; color:var(--text); cursor:pointer; font-size:20px; padding:6px; }
+.icon-btn { background:none; border:none; color:var(--text); cursor:pointer; font-size:18px; position:relative; padding:6px; }
+.badge { position:absolute; top:0; right:0; background:var(--accent); color:#fff; font-size:10px; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; }
+
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 24px; border-radius:var(--radius); border:none; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none; }
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:#a8340a; transform:translateY(-1px); box-shadow:0 4px 16px rgba(200,66,10,.3); }
+.btn-secondary { background:var(--surface2); color:var(--text); border:2px solid var(--border); }
+.btn-outline { background:transparent; color:var(--accent); border:2px solid var(--accent); }
+.btn-full { width:100%; }
+.btn-sm { padding:9px 14px; font-size:13px; border-radius:var(--radius-sm); }
+
+.card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+
+.tag { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:100px; font-size:11px; font-weight:600; }
+.tag-green { background:rgba(92,138,60,.12); color:var(--green); }
+.tag-orange { background:rgba(232,168,32,.15); color:#a07010; }
+.tag-red { background:rgba(200,66,10,.12); color:var(--accent); }
+
+.divider { height:1.5px; background:var(--border); margin:14px 0; }
+
+input, select, textarea { background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); color:var(--text); font-family:'Inter',sans-serif; font-size:14px; padding:12px 14px; width:100%; outline:none; transition:border-color .2s; }
+input:focus, select:focus, textarea:focus { border-color:var(--accent); background:#fff; }
+input::placeholder { color:var(--text-dim); }
+label { font-size:12px; color:var(--text-dim); margin-bottom:5px; display:block; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+
+/* ── PADRÃO BG ── */
+.pattern-bg {
+  background-image: repeating-linear-gradient(45deg, rgba(200,66,10,.04) 0, rgba(200,66,10,.04) 1px, transparent 0, transparent 50%);
+  background-size: 20px 20px;
+}
+
+/* ══════════════════════════════
+   TELA 1: SPLASH + LGPD
+══════════════════════════════ */
+#screen-splash {
+  background: linear-gradient(160deg, #2c1a0e 0%, #5c2d0e 40%, #8b4513 100%);
+  align-items:center; justify-content:center; padding:32px 24px; text-align:center;
+  position:relative; overflow:hidden;
+}
+#screen-splash::before {
+  content:''; position:absolute; inset:0;
+  background-image: radial-gradient(circle at 20% 80%, rgba(232,168,32,.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(200,66,10,.2) 0%, transparent 50%);
+}
+.splash-content { position:relative; z-index:1; max-width:380px; width:100%; }
+.splash-emblem { font-size:72px; margin-bottom:12px; filter:drop-shadow(0 4px 12px rgba(0,0,0,.4)); }
+.splash-logo { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; color:#fff; line-height:1; }
+.splash-logo span { color:var(--accent2); }
+.splash-sub { font-size:13px; color:rgba(255,255,255,.6); margin-bottom:36px; letter-spacing:1px; text-transform:uppercase; margin-top:6px; }
+
+.lgpd-box { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:var(--radius); padding:18px; margin-bottom:20px; text-align:left; backdrop-filter:blur(8px); }
+.lgpd-box h3 { font-size:13px; color:var(--accent2); margin-bottom:8px; font-weight:700; letter-spacing:.5px; }
+.lgpd-box p { font-size:12px; color:rgba(255,255,255,.75); line-height:1.7; }
+.lgpd-box a { color:var(--accent2); cursor:pointer; }
+
+.check-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; text-align:left; }
+.check-row input[type=checkbox] { width:18px; height:18px; flex-shrink:0; margin-top:2px; accent-color:var(--accent2); }
+.check-row span { font-size:12px; color:rgba(255,255,255,.75); line-height:1.5; }
+.check-row b { color:rgba(255,255,255,.9); }
+
+/* ══════════════════════════════
+   TELA 2: AUTH
+══════════════════════════════ */
+#screen-auth { background:var(--bg); }
+.auth-header { background:linear-gradient(135deg, #2c1a0e, #5c2d0e); padding:36px 24px 28px; text-align:center; }
+.auth-emblem { font-size:40px; margin-bottom:8px; }
+.auth-logo { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:#fff; }
+.auth-logo span { color:var(--accent2); }
+.auth-sub { font-size:12px; color:rgba(255,255,255,.6); margin-top:4px; }
+.auth-body { padding:24px 20px; flex:1; }
+.auth-tabs { display:flex; background:var(--surface2); border-radius:var(--radius); padding:4px; margin-bottom:24px; border:1.5px solid var(--border); }
+.auth-tab { flex:1; padding:10px; border:none; background:none; color:var(--text-dim); font-size:14px; font-weight:600; border-radius:10px; cursor:pointer; transition:all .2s; }
+.auth-tab.active { background:var(--accent); color:#fff; }
+.form-group { margin-bottom:14px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.social-divider { display:flex; align-items:center; gap:10px; margin:18px 0; }
+.social-divider span { font-size:11px; color:var(--text-dim); font-weight:600; text-transform:uppercase; letter-spacing:.5px; white-space:nowrap; }
+.social-divider::before, .social-divider::after { content:''; flex:1; height:1.5px; background:var(--border); }
+.social-btns { display:flex; gap:10px; }
+.social-btn { flex:1; padding:11px; background:var(--surface2); border:1.5px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:border-color .2s; }
+.social-btn:hover { border-color:var(--accent); }
+
+/* ══════════════════════════════
+   TELA 3: HOME
+══════════════════════════════ */
+#screen-home { background:var(--bg); }
+.home-hero { background:linear-gradient(135deg, #2c1a0e 0%, #5c2d0e 60%, #8b4513 100%); padding:24px 20px 20px; position:relative; overflow:hidden; }
+.home-hero::after { content:'🌽'; position:absolute; right:-10px; bottom:-10px; font-size:80px; opacity:.15; transform:rotate(-20deg); }
+.hero-greeting { font-size:12px; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:1px; }
+.hero-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:#fff; margin-top:2px; }
+.hero-pts { display:flex; align-items:center; gap:10px; margin-top:14px; background:rgba(255,255,255,.1); border:1px solid rgba(232,168,32,.3); border-radius:var(--radius-sm); padding:10px 14px; cursor:pointer; }
+.hero-pts-num { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:var(--accent2); }
+.hero-pts-label { font-size:11px; color:rgba(255,255,255,.7); line-height:1.3; }
+
+.section { padding:18px 20px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--dark); }
+.see-all { font-size:12px; color:var(--accent); cursor:pointer; background:none; border:none; font-weight:600; }
+
+/* canal chips */
+.canal-chips { display:flex; gap:8px; overflow-x:auto; padding:14px 20px 4px; }
+.canal-chips::-webkit-scrollbar { display:none; }
+.canal-chip { flex-shrink:0; display:flex; align-items:center; gap:6px; background:var(--surface2); border:1.5px solid var(--border); border-radius:100px; padding:8px 14px; font-size:12px; font-weight:600; color:var(--text-dim); cursor:pointer; transition:all .2s; }
+.canal-chip.active, .canal-chip:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* CARTÕES */
+.unit-cards { display:flex; gap:12px; overflow-x:auto; padding-bottom:4px; }
+.unit-cards::-webkit-scrollbar { display:none; }
+.unit-card { flex-shrink:0; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; min-width:170px; cursor:pointer; transition:all .2s; box-shadow:var(--shadow); }
+.unit-card:hover, .unit-card.active { border-color:var(--accent); box-shadow:0 4px 20px rgba(200,66,10,.15); }
+.unit-card-icon { font-size:26px; margin-bottom:6px; }
+.unit-card-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--dark); margin-bottom:3px; }
+.unit-card-info { font-size:11px; color:var(--text-dim); }
+.unit-card-status { margin-top:8px; }
+
+/* promo banner */
+.promo-banner { margin:0 20px 18px; background:linear-gradient(135deg, #5c8a3c, #3d6b28); border-radius:var(--radius); padding:18px 20px; position:relative; overflow:hidden; cursor:pointer; }
+.promo-banner::after { content:'🌿'; position:absolute; right:12px; bottom:-8px; font-size:56px; opacity:.25; }
+.promo-badge { font-size:10px; font-weight:700; background:rgba(255,255,255,.2); color:#fff; padding:3px 8px; border-radius:100px; display:inline-block; margin-bottom:6px; letter-spacing:.5px; text-transform:uppercase; }
+.promo-title { font-family:'Playfair Display',serif; font-size:19px; font-weight:900; color:#fff; margin-bottom:3px; }
+.promo-desc { font-size:12px; color:rgba(255,255,255,.8); }
+
+/* product grid */
+.popular-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.product-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:transform .2s; box-shadow:var(--shadow); }
+.product-card:hover { transform:translateY(-2px); }
+.product-img { font-size:44px; text-align:center; padding:18px; background:var(--surface2); }
+.product-info { padding:12px; }
+.product-name { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--dark); margin-bottom:3px; }
+.product-desc { font-size:11px; color:var(--text-dim); margin-bottom:8px; line-height:1.4; }
+.product-price { font-size:15px; font-weight:700; color:var(--accent); }
+
+/* bottom nav */
+.bottom-nav { display:flex; background:var(--surface); border-top:2px solid var(--border); position:sticky; bottom:0; z-index:100; }
+.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; padding:10px 8px; cursor:pointer; gap:3px; background:none; border:none; color:var(--text-dim); transition:color .2s; font-size:10px; font-weight:600; }
+.nav-item span:first-child { font-size:20px; }
+.nav-item.active { color:var(--accent); }
+
+/* ══════════════════════════════
+   TELA 4: CARDÁPIO
+══════════════════════════════ */
+#screen-menu { background:var(--bg); }
+.menu-cats { display:flex; gap:8px; overflow-x:auto; padding:14px 20px; border-bottom:1.5px solid var(--border); }
+.menu-cats::-webkit-scrollbar { display:none; }
+.cat-pill { flex-shrink:0; padding:8px 16px; border-radius:100px; border:1.5px solid var(--border); background:var(--surface2); color:var(--text-mid); font-size:12px; font-weight:600; cursor:pointer; transition:all .2s; }
+.cat-pill.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.sazonalidade-banner { margin:12px 20px; background:rgba(232,168,32,.12); border:1.5px solid rgba(232,168,32,.3); border-radius:var(--radius-sm); padding:10px 14px; font-size:12px; color:#7a5010; }
+.sazonalidade-banner strong { color:#a07010; }
+.menu-list { padding:12px 20px; display:flex; flex-direction:column; gap:10px; }
+.menu-item { display:flex; gap:12px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; cursor:pointer; transition:border-color .2s; align-items:flex-start; box-shadow:var(--shadow); }
+.menu-item:hover { border-color:var(--accent); }
+.menu-item-img { font-size:40px; flex-shrink:0; }
+.menu-item-body { flex:1; min-width:0; }
+.menu-item-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--dark); margin-bottom:3px; }
+.menu-item-desc { font-size:11px; color:var(--text-dim); line-height:1.5; margin-bottom:8px; }
+.menu-item-footer { display:flex; align-items:center; justify-content:space-between; }
+.menu-item-price { font-size:15px; font-weight:700; color:var(--accent); }
+.add-btn { background:var(--accent); border:none; color:#fff; width:30px; height:30px; border-radius:8px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:700; transition:background .2s; }
+.add-btn:hover { background:#a8340a; }
+.unavail { opacity:.4; pointer-events:none; }
+
+/* ══════════════════════════════
+   TELA 5: PRODUTO
+══════════════════════════════ */
+#screen-product { background:var(--bg); }
+.product-hero { background:var(--surface2); text-align:center; padding:36px 20px; font-size:80px; border-bottom:1.5px solid var(--border); position:relative; }
+.product-hero-badge { position:absolute; top:12px; right:12px; background:var(--accent2); color:var(--dark); font-size:10px; font-weight:700; padding:4px 10px; border-radius:100px; }
+.product-detail { padding:22px 20px; }
+.product-detail-name { font-family:'Playfair Display',serif; font-size:24px; font-weight:900; color:var(--dark); margin-bottom:6px; }
+.product-detail-desc { color:var(--text-dim); font-size:13px; line-height:1.7; margin-bottom:16px; }
+.product-detail-price { font-family:'Playfair Display',serif; font-size:30px; font-weight:900; color:var(--accent); margin-bottom:20px; }
+.qty-row { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.qty-btn { background:var(--surface2); border:1.5px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:8px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.qty-val { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; min-width:36px; text-align:center; }
+.options-section { margin-bottom:20px; }
+.options-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--dark); margin-bottom:10px; }
+.option-item { display:flex; align-items:center; justify-content:space-between; padding:11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-sm); margin-bottom:6px; cursor:pointer; transition:all .2s; }
+.option-item.selected { border-color:var(--accent); background:rgba(200,66,10,.04); }
+.option-label { font-size:13px; font-weight:500; }
+.option-price { font-size:12px; color:var(--accent); font-weight:600; }
+.alergenicos { background:rgba(232,168,32,.1); border:1px solid rgba(232,168,32,.25); border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:20px; font-size:11px; color:#7a5010; }
+
+/* ══════════════════════════════
+   TELA 6: CARRINHO
+══════════════════════════════ */
+#screen-cart { background:var(--bg); }
+.cart-list { padding:14px 20px; flex:1; }
+.cart-item { display:flex; align-items:center; gap:12px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:10px; box-shadow:var(--shadow); }
+.cart-item-img { font-size:34px; flex-shrink:0; }
+.cart-item-body { flex:1; }
+.cart-item-name { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--dark); margin-bottom:2px; }
+.cart-item-opt { font-size:11px; color:var(--text-dim); }
+.cart-item-price { font-size:13px; color:var(--accent); font-weight:700; margin-top:4px; }
+.mini-qty { display:flex; align-items:center; gap:8px; flex-direction:column; }
+.mini-btn { background:var(--surface2); border:1.5px solid var(--border); color:var(--text); width:26px; height:26px; border-radius:6px; cursor:pointer; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.mini-num { font-size:13px; min-width:16px; text-align:center; font-weight:700; }
+.remove-btn { background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:15px; padding:4px; }
+.cart-summary { padding:14px 20px; border-top:2px solid var(--border); background:var(--surface); }
+.summary-row { display:flex; justify-content:space-between; margin-bottom:7px; font-size:13px; color:var(--text-mid); }
+.summary-row.total { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--accent); margin-top:4px; }
+.coupon-row { display:flex; gap:8px; margin:10px 0; }
+.coupon-row input { flex:1; }
+
+/* ══════════════════════════════
+   TELA 7: CHECKOUT
+══════════════════════════════ */
+#screen-checkout { background:var(--bg); }
+.checkout-content { padding:18px 20px; flex:1; }
+.delivery-toggle { display:flex; background:var(--surface2); border-radius:var(--radius); padding:4px; margin-bottom:18px; border:1.5px solid var(--border); }
+.delivery-opt { flex:1; padding:10px; text-align:center; border-radius:10px; cursor:pointer; font-size:13px; font-weight:600; transition:all .2s; border:none; background:none; color:var(--text-dim); }
+.delivery-opt.active { background:var(--accent); color:#fff; }
+.payment-methods { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
+.pay-method { background:var(--surface); border:2px solid var(--border); border-radius:var(--radius); padding:14px; cursor:pointer; text-align:center; transition:all .2s; box-shadow:var(--shadow); }
+.pay-method.selected { border-color:var(--accent); background:rgba(200,66,10,.04); }
+.pay-method-icon { font-size:26px; margin-bottom:5px; }
+.pay-method-label { font-size:11px; color:var(--text-dim); font-weight:600; }
+.pay-method.selected .pay-method-label { color:var(--accent); }
+.card-form { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:16px; margin-bottom:18px; }
+.card-form-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--dark); margin-bottom:12px; }
+.lgpd-notice { background:rgba(92,138,60,.08); border:1.5px solid rgba(92,138,60,.2); border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:18px; }
+.lgpd-notice h4 { font-size:11px; font-weight:700; color:var(--green); margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px; }
+.lgpd-notice p { font-size:11px; color:var(--text-dim); line-height:1.6; }
+
+/* ══════════════════════════════
+   TELA 8: PROCESSANDO
+══════════════════════════════ */
+#screen-processing { align-items:center; justify-content:center; text-align:center; padding:40px 24px; background:var(--bg); }
+.proc-icon { font-size:72px; margin-bottom:20px; animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.proc-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--dark); margin-bottom:6px; }
+.proc-sub { font-size:13px; color:var(--text-dim); }
+.progress-bar { width:100%; height:7px; background:var(--surface2); border-radius:100px; margin:22px 0; overflow:hidden; border:1px solid var(--border); }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--accent), var(--accent2)); border-radius:100px; animation:prog 2.8s ease-in-out forwards; }
+@keyframes prog { from{width:0} to{width:100%} }
+
+/* ══════════════════════════════
+   TELA 9: STATUS
+══════════════════════════════ */
+#screen-status { background:var(--bg); }
+.status-content { padding:18px 20px; flex:1; }
+.order-id { font-size:12px; color:var(--text-dim); margin-bottom:16px; }
+.order-id strong { color:var(--accent); }
+.eta-card { background:linear-gradient(135deg, var(--accent), #a8340a); border-radius:var(--radius); padding:18px; text-align:center; margin-bottom:18px; }
+.eta-time { font-family:'Playfair Display',serif; font-size:44px; font-weight:900; color:#fff; }
+.eta-label { font-size:12px; color:rgba(255,255,255,.8); }
+.timeline { position:relative; padding-left:28px; }
+.timeline::before { content:''; position:absolute; left:9px; top:8px; bottom:8px; width:2px; background:var(--border); }
+.timeline-item { position:relative; margin-bottom:24px; }
+.t-dot { position:absolute; left:-28px; width:20px; height:20px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; top:2px; }
+.t-dot.done { background:var(--green); }
+.t-dot.active { background:var(--accent); animation:dpulse 1s infinite; }
+@keyframes dpulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,66,10,.4)} 50%{box-shadow:0 0 0 8px rgba(200,66,10,0)} }
+.t-label { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--dark); margin-bottom:2px; }
+.t-sub { font-size:11px; color:var(--text-dim); }
+.t-dim .t-label { color:var(--text-dim); }
+
+/* ══════════════════════════════
+   TELA 10: FIDELIDADE
+══════════════════════════════ */
+#screen-loyalty { background:var(--bg); }
+.loyalty-card { margin:18px 20px; background:linear-gradient(135deg, #2c1a0e, #5c2d0e); border-radius:var(--radius); padding:22px; text-align:center; box-shadow:0 8px 32px rgba(44,26,14,.25); }
+.loyalty-pts { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--accent2); line-height:1; }
+.loyalty-level { display:inline-flex; align-items:center; gap:6px; background:rgba(232,168,32,.15); color:var(--accent2); padding:5px 14px; border-radius:100px; font-size:12px; font-weight:700; margin:8px 0; border:1px solid rgba(232,168,32,.3); }
+.loyalty-progress { background:rgba(255,255,255,.15); border-radius:100px; height:8px; margin-top:14px; }
+.loyalty-fill { height:100%; border-radius:100px; background:linear-gradient(90deg, var(--accent), var(--accent2)); width:62%; }
+.loyalty-next { font-size:11px; color:rgba(255,255,255,.6); margin-top:8px; }
+.rewards-list { padding:0 20px 20px; display:flex; flex-direction:column; gap:10px; }
+.reward-item { display:flex; align-items:center; gap:14px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:14px; box-shadow:var(--shadow); }
+.reward-icon { font-size:34px; }
+.reward-body { flex:1; }
+.reward-name { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--dark); margin-bottom:2px; }
+.reward-cost { font-size:11px; color:var(--text-dim); }
+.reward-btn { background:var(--accent); color:#fff; border:none; padding:8px 14px; border-radius:var(--radius-sm); font-size:12px; font-weight:700; cursor:pointer; }
+.reward-btn:disabled { background:var(--border); color:var(--text-dim); cursor:not-allowed; }
+
+/* ══════════════════════════════
+   TELA 11: PERFIL
+══════════════════════════════ */
+#screen-profile { background:var(--bg); }
+.profile-header { padding:24px 20px; background:linear-gradient(135deg, #2c1a0e, #5c2d0e); text-align:center; }
+.profile-avatar { font-size:52px; margin-bottom:10px; }
+.profile-name { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; }
+.profile-email { font-size:12px; color:rgba(255,255,255,.6); margin-top:3px; }
+.profile-menu { padding:14px 20px; }
+.profile-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1.5px solid var(--border); cursor:pointer; }
+.profile-item:last-child { border-bottom:none; }
+.profile-item-icon { font-size:18px; width:36px; height:36px; background:var(--surface2); border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.profile-item-label { flex:1; font-size:14px; font-weight:500; }
+.profile-item-arrow { color:var(--text-dim); font-size:16px; }
+
+/* ══════════════════════════════
+   TELA 12: PRIVACIDADE
+══════════════════════════════ */
+#screen-privacy { background:var(--bg); }
+.privacy-content { padding:18px 20px; }
+.privacy-section { margin-bottom:22px; }
+.privacy-section h3 { font-family:'Playfair Display',serif; font-size:15px; color:var(--accent); margin-bottom:10px; }
+.privacy-section p { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+.privacy-toggle-row { display:flex; align-items:center; justify-content:space-between; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:8px; }
+.toggle { position:relative; width:44px; height:24px; flex-shrink:0; }
+.toggle input { opacity:0; width:0; height:0; }
+.toggle-slider { position:absolute; inset:0; background:var(--border); border-radius:100px; cursor:pointer; transition:.3s; }
+.toggle-slider::before { content:''; position:absolute; width:18px; height:18px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.3s; }
+.toggle input:checked + .toggle-slider { background:var(--accent); }
+.toggle input:checked + .toggle-slider::before { transform:translateX(20px); }
+
+/* ══════════════════════════════
+   TELA 13: TOTEM
+══════════════════════════════ */
+#screen-totem { background:#1a0f08; }
+.totem-header { padding:24px 20px 18px; text-align:center; background:linear-gradient(180deg, #2c1a0e, #1a0f08); border-bottom:2px solid rgba(232,168,32,.2); }
+.totem-logo { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:#fff; }
+.totem-logo span { color:var(--accent2); }
+.totem-sub { font-size:12px; color:rgba(255,255,255,.5); margin-top:4px; }
+.totem-content { padding:20px; flex:1; }
+.totem-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:16px; text-align:center; }
+.totem-cats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+.totem-cat { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:var(--radius); padding:18px; text-align:center; cursor:pointer; transition:all .2s; }
+.totem-cat:hover { border-color:var(--accent2); background:rgba(232,168,32,.08); }
+.totem-cat-icon { font-size:36px; margin-bottom:8px; }
+.totem-cat-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; }
+.totem-cat-count { font-size:11px; color:rgba(255,255,255,.5); margin-top:3px; }
+.totem-actions { display:flex; flex-direction:column; gap:10px; }
+.totem-action-btn { background:none; border:1.5px solid rgba(255,255,255,.15); border-radius:var(--radius); padding:16px; display:flex; align-items:center; gap:14px; cursor:pointer; color:#fff; font-family:'Inter',sans-serif; transition:border-color .2s; }
+.totem-action-btn:hover { border-color:var(--accent2); }
+.totem-action-icon { font-size:24px; }
+.totem-action-label { font-size:14px; font-weight:600; }
+.totem-action-sub { font-size:11px; color:rgba(255,255,255,.5); margin-top:2px; }
+
+/* ══════════════════════════════
+   TOAST + MODAL
+══════════════════════════════ */
+.toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--green); color:#fff; padding:12px 20px; border-radius:var(--radius); font-size:13px; font-weight:600; z-index:9999; opacity:0; transition:all .3s; white-space:nowrap; pointer-events:none; box-shadow:0 4px 20px rgba(92,138,60,.35); }
+.toast.error { background:var(--accent); box-shadow:0 4px 20px rgba(200,66,10,.35); }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+.modal-overlay { position:fixed; inset:0; background:rgba(44,26,14,.6); z-index:500; display:none; align-items:flex-end; justify-content:center; backdrop-filter:blur(4px); }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--surface); border-radius:var(--radius) var(--radius) 0 0; width:100%; max-width:480px; padding:24px; animation:slideUp .3s ease; border-top:3px solid var(--accent); }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.modal h3 { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--dark); margin-bottom:8px; }
+.modal p { font-size:13px; color:var(--text-dim); line-height:1.6; margin-bottom:16px; }
+
+/* empty */
+.empty-state { text-align:center; padding:50px 20px; }
+.empty-icon { font-size:56px; margin-bottom:14px; }
+.empty-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--dark); margin-bottom:6px; }
+.empty-sub { font-size:13px; color:var(--text-dim); }
+
+/* responsive */
+@media(min-width:600px) {
+  .screen { max-width:420px; margin:0 auto; box-shadow:0 0 60px rgba(44,26,14,.25); }
+  body { display:flex; justify-content:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     TELA 1: SPLASH + LGPD
+══════════════════════════════ -->
+<div id="screen-splash" class="screen active">
+  <div class="splash-content">
+    <div class="splash-emblem">🌵</div>
+    <div class="splash-logo">Raízes do <span>Nordeste</span></div>
+    <div class="splash-sub">Sabor de raiz, cheirinho de caseiro</div>
+
+    <div class="lgpd-box">
+      <h3>🔐 Aviso de Privacidade — LGPD</h3>
+      <p>A Raízes do Nordeste coleta dados pessoais (nome, e-mail, localização e histórico de pedidos) para autenticação, entrega e programa de fidelização. Seus dados são tratados com segurança e <b style="color:rgba(255,255,255,.9)">nunca compartilhados sem consentimento</b>, em conformidade com a Lei 13.709/2018 (LGPD). Consulte ou exclua seus dados a qualquer momento em <a onclick="go('privacy')">Perfil › Privacidade</a>.</p>
+    </div>
+
+    <div class="check-row"><input type="checkbox" id="chk1" checked><span>Li e aceito os <a>Termos de Uso</a> e a <a>Política de Privacidade</a> <b>(obrigatório)</b></span></div>
+    <div class="check-row"><input type="checkbox" id="chk2"><span>Aceito receber promoções e novidades por e-mail/SMS <b>(opcional)</b></span></div>
+    <div class="check-row"><input type="checkbox" id="chk3"><span>Autorizo uso da minha localização para sugerir unidades próximas <b>(opcional)</b></span></div>
+
+    <button class="btn btn-primary btn-full" style="margin-top:16px;background:var(--accent2);color:#2c1a0e;" onclick="aceitarLGPD()">Continuar →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 2: AUTH
+══════════════════════════════ -->
+<div id="screen-auth" class="screen">
+  <div class="auth-header">
+    <div class="auth-emblem">🌵</div>
+    <div class="auth-logo">Raízes do <span>Nordeste</span></div>
+    <div class="auth-sub">Acesse sua conta para fazer pedidos</div>
+  </div>
+  <div class="auth-body">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Entrar</button>
+      <button class="auth-tab" onclick="switchTab('register')">Cadastrar</button>
+    </div>
+    <div id="tab-login">
+      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" id="login-email"></div>
+      <div class="form-group"><label>Senha</label><input type="password" placeholder="••••••••" id="login-pass"></div>
+      <button class="btn btn-primary btn-full" onclick="fazerLogin()" style="margin-bottom:10px">Entrar na conta</button>
+      <button class="btn btn-secondary btn-full" style="margin-bottom:16px;font-size:13px">Esqueci minha senha</button>
+      <div class="social-divider"><span>ou continue com</span></div>
+      <div class="social-btns">
+        <div class="social-btn" onclick="loginSocial('Google')">🇬</div>
+        <div class="social-btn" onclick="loginSocial('Apple')">🍎</div>
+        <div class="social-btn" onclick="loginSocial('Facebook')">📘</div>
+      </div>
+    </div>
+    <div id="tab-register" style="display:none">
+      <div class="form-row">
+        <div class="form-group"><label>Nome</label><input placeholder="Carlos" id="reg-nome"></div>
+        <div class="form-group"><label>Sobrenome</label><input placeholder="Silva" id="reg-sob"></div>
+      </div>
+      <div class="form-group"><label>E-mail</label><input type="email" placeholder="Carlos@email.com" id="reg-email"></div>
+      <div class="form-group"><label>Telefone</label><input placeholder="(81) 99999-9999" id="reg-tel"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Senha</label><input type="password" placeholder="••••••••" id="reg-pass"></div>
+        <div class="form-group"><label>Confirmar</label><input type="password" placeholder="••••••••" id="reg-pass2"></div>
+      </div>
+      <div class="form-group"><label>Data de nascimento</label><input type="date" id="reg-nasc"></div>
+      <div class="check-row" style="margin-bottom:14px">
+        <input type="checkbox" id="reg-terms">
+        <span style="font-size:12px;color:var(--text-dim)">Li e aceito os Termos de Uso e a Política de Privacidade (LGPD)</span>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="fazerCadastro()">Criar minha conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 3: HOME
+══════════════════════════════ -->
+<div id="screen-home" class="screen">
+  <div class="home-hero">
+    <div class="hero-greeting">Bem-vindo de volta 👋</div>
+    <div class="hero-name" id="hero-name">Carlos Silva</div>
+    <div class="hero-pts" onclick="go('loyalty')">
+      <div>
+        <div class="hero-pts-num">1.480</div>
+        <div class="hero-pts-label">pontos de fidelidade ⭐<br><span style="font-size:10px;opacity:.8">Nível Ouro</span></div>
+      </div>
+      <div style="margin-left:auto;font-size:12px;color:var(--accent2);font-weight:700">Ver prêmios →</div>
+    </div>
+  </div>
+
+  <!-- canal chips -->
+  <div style="padding:14px 20px 0">
+    <div style="font-size:11px;color:var(--text-dim);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Canal de pedido</div>
+  </div>
+  <div class="canal-chips">
+    <div class="canal-chip active" onclick="selCanal(this)">📱 App</div>
+    <a href="web.html" class="canal-chip">🌐Site</a>
+    <div class="canal-chip" onclick="go('totem')">🖥️ Totem</div>
+    <div class="canal-chip" onclick="selCanal(this)">🏃 Pick-up</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Escolha a Unidade</div>
+    </div>
+    <div class="unit-cards">
+      <div class="unit-card active" onclick="selUnit(this,'Recife — Boa Viagem')">
+        <div class="unit-card-icon">🏪</div>
+        <div class="unit-card-name">Boa Viagem</div>
+        <div class="unit-card-info">Recife · 1,2 km · 20 min</div>
+        <div class="unit-card-status"><span class="tag tag-green">● Aberta</span></div>
+      </div>
+      <div class="unit-card" onclick="selUnit(this,'Recife — Boa Vista')">
+        <div class="unit-card-icon">🏪</div>
+        <div class="unit-card-name">Boa Vista</div>
+        <div class="unit-card-info">Recife · 3,4 km · 35 min</div>
+        <div class="unit-card-status"><span class="tag tag-green">● Aberta</span></div>
+      </div>
+      <div class="unit-card" onclick="selUnit(this,'Fortaleza — Meireles')">
+        <div class="unit-card-icon">🏪</div>
+        <div class="unit-card-name">Meireles</div>
+        <div class="unit-card-info">Fortaleza · 5,0 km · 40 min</div>
+        <div class="unit-card-status"><span class="tag tag-orange">● Lotada</span></div>
+      </div>
+      <div class="unit-card" onclick="selUnit(this,'Salvador — Pelourinho')">
+        <div class="unit-card-icon">🏪</div>
+        <div class="unit-card-name">Pelourinho</div>
+        <div class="unit-card-info">Salvador · formato reduzido</div>
+        <div class="unit-card-status"><span class="tag tag-green">● Aberta</span></div>
+      </div>
+      <div class="unit-card" onclick="selUnit(this,'Natal — Ponta Negra')">
+        <div class="unit-card-icon">🏪</div>
+        <div class="unit-card-name">Ponta Negra</div>
+        <div class="unit-card-info">Natal · 8,0 km · 50 min</div>
+        <div class="unit-card-status"><span class="tag tag-red">● Fechada</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo-banner" onclick="go('menu')">
+    <div class="promo-badge">🎉 Promoção do Dia</div>
+    <div class="promo-title">Tapioca + Suco<br>R$ 18,90</div>
+    <div class="promo-desc">Combo especial nordestino. Válido até as 14h.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Mais Pedidos</div>
+      <button class="see-all" onclick="go('menu')">Ver cardápio →</button>
+    </div>
+    <div class="popular-grid">
+      <div class="product-card" onclick="go('product')">
+        <div class="product-img">🫓</div>
+        <div class="product-info">
+          <div class="product-name">Tapioca Nordestina</div>
+          <div class="product-desc">Coco queimado, manteiga e queijo coalho</div>
+          <div class="product-price">R$ 12,90</div>
+        </div>
+      </div>
+      <div class="product-card" onclick="go('product')">
+        <div class="product-img">🌽</div>
+        <div class="product-info">
+          <div class="product-name">Cuscuz Completo</div>
+          <div class="product-desc">Ovos, carne de sol e manteiga de garrafa</div>
+          <div class="product-price">R$ 16,90</div>
+        </div>
+      </div>
+      <div class="product-card" onclick="go('product')">
+        <div class="product-img">☕</div>
+        <div class="product-info">
+          <div class="product-name">Café Passado</div>
+          <div class="product-desc">Grão nordestino, coado na hora</div>
+          <div class="product-price">R$ 7,90</div>
+        </div>
+      </div>
+      <div class="product-card" onclick="go('product')">
+        <div class="product-img">🥭</div>
+        <div class="product-info">
+          <div class="product-name">Suco de Umbu</div>
+          <div class="product-desc">300ml, fruta típica do sertão</div>
+          <div class="product-price">R$ 9,90</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:80px"></div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="go('home')"><span>🏠</span><span>Início</span></button>
+    <button class="nav-item" onclick="go('menu')"><span>📋</span><span>Cardápio</span></button>
+    <button class="nav-item" onclick="go('cart')" style="position:relative"><span>🛒</span><span>Carrinho</span><div class="badge" id="cart-badge" style="top:-2px;right:12px">2</div></button>
+    <button class="nav-item" onclick="go('loyalty')"><span>⭐</span><span>Fidelidade</span></button>
+    <button class="nav-item" onclick="go('profile')"><span>👤</span><span>Perfil</span></button>
+  </nav>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 4: CARDÁPIO
+══════════════════════════════ -->
+<div id="screen-menu" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="topbar-title">Cardápio · Boa Viagem</div>
+    <button class="icon-btn" onclick="go('cart')">🛒<div class="badge">2</div></button>
+  </div>
+  <div style="padding:12px 20px 6px;display:flex;gap:8px">
+    <input placeholder="🔍 Buscar tapioca, cuscuz..." style="flex:1">
+  </div>
+  <div class="menu-cats">
+    <button class="cat-pill active" onclick="filterCat(this)">Todos</button>
+    <button class="cat-pill" onclick="filterCat(this)">🫓 Tapiocas</button>
+    <button class="cat-pill" onclick="filterCat(this)">🌽 Cuscuz</button>
+    <button class="cat-pill" onclick="filterCat(this)">☕ Cafés</button>
+    <button class="cat-pill" onclick="filterCat(this)">🥭 Sucos</button>
+    <button class="cat-pill" onclick="filterCat(this)">🍰 Bolos</button>
+    <button class="cat-pill" onclick="filterCat(this)">⭐ Promoções</button>
+  </div>
+  <div class="sazonalidade-banner">
+    🌻 <strong>Época junina:</strong> Bolo de macaxeira e paçoca disponíveis apenas até 30/06
+  </div>
+  <div class="menu-list">
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">🫓</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Tapioca Nordestina Clássica</div>
+        <div class="menu-item-desc">Goma fresca, coco queimado, queijo coalho e manteiga de garrafa</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 12,90</div><button class="add-btn" onclick="addCart(event,'Tapioca Nordestina',12.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">🌽</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Cuscuz Completo</div>
+        <div class="menu-item-desc">Cuscuz de milho, dois ovos caipiras, carne de sol desfiada e manteiga de garrafa</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 16,90</div><button class="add-btn" onclick="addCart(event,'Cuscuz Completo',16.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">🥩</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Tapioca Carne de Sol</div>
+        <div class="menu-item-desc">Carne de sol desfiada, queijo de coalho e manteiga. Especialidade da casa.</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 17,90</div><button class="add-btn" onclick="addCart(event,'Tapioca Carne de Sol',17.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">☕</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Café Passado da Dona Francisca</div>
+        <div class="menu-item-desc">Grão nordestino selecionado, coado na hora em coador de pano</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 7,90</div><button class="add-btn" onclick="addCart(event,'Café Passado',7.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">🥭</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Suco de Umbu 300ml</div>
+        <div class="menu-item-desc">Fruta típica do sertão nordestino, polpa natural sem conservantes</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 9,90</div><button class="add-btn" onclick="addCart(event,'Suco de Umbu',9.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item" onclick="go('product')">
+      <div class="menu-item-img">🍰</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Bolo de Macaxeira</div>
+        <div class="menu-item-desc">Receita tradicional nordestina. <span style="color:var(--accent2);font-weight:600">🌻 Sazonal — até 30/jun</span></div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 10,90</div><button class="add-btn" onclick="addCart(event,'Bolo de Macaxeira',10.90)">+</button></div>
+      </div>
+    </div>
+    <div class="menu-item unavail">
+      <div class="menu-item-img">🥜</div>
+      <div class="menu-item-body">
+        <div class="menu-item-name">Paçoca de Pilão <span class="tag tag-red" style="font-size:9px;margin-left:6px">Indisponível</span></div>
+        <div class="menu-item-desc">Disponível apenas na unidade com cozinha completa</div>
+        <div class="menu-item-footer"><div class="menu-item-price">R$ 6,90</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:20px"></div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 5: PRODUTO
+══════════════════════════════ -->
+<div id="screen-product" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('menu')">←</button>
+    <div class="topbar-title">Detalhe</div>
+    <button class="icon-btn" onclick="go('cart')">🛒<div class="badge">2</div></button>
+  </div>
+  <div class="product-hero">
+    🫓
+    <div class="product-hero-badge">⭐ Mais Pedido</div>
+  </div>
+  <div class="product-detail">
+    <div class="product-detail-name">Tapioca Nordestina Clássica</div>
+    <div class="product-detail-desc">Feita na hora com goma fresca de mandioca, recheada com coco queimado artesanal, queijo coalho e regada com manteiga de garrafa do sertão. Receita da Dona Francisca desde a primeira unidade.</div>
+    <div class="product-detail-price">R$ 12,90</div>
+
+    <div class="options-section">
+      <div class="options-title">🧀 Escolha o recheio base</div>
+      <div class="option-item selected" onclick="toggleOpt(this)"><span class="option-label">Coco + Queijo Coalho</span><span class="option-price">incluso</span></div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Só queijo coalho</span><span class="option-price">incluso</span></div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Banana + Mel</span><span class="option-price">incluso</span></div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Carne de Sol (upgrade)</span><span class="option-price">+ R$ 5,00</span></div>
+    </div>
+
+    <div class="options-section">
+      <div class="options-title">➕ Adicionais</div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Ovo caipira frito</span><span class="option-price">+ R$ 3,00</span></div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Manteiga extra</span><span class="option-price">+ R$ 1,50</span></div>
+      <div class="option-item" onclick="toggleOpt(this)"><span class="option-label">Sem manteiga</span><span class="option-price">incluso</span></div>
+    </div>
+
+    <div class="alergenicos">
+      ⚠️ <strong>Alergênicos:</strong> Contém glúten (goma de mandioca pode ter traços), derivados do leite (queijo coalho). Produzido em ambiente com nozes.
+    </div>
+
+    <div class="qty-row">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <div class="qty-val" id="qty-val">1</div>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+      <div style="color:var(--text-dim);font-size:12px">unid.</div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="addFromDetail()">Adicionar ao Carrinho · R$ 12,90</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 6: CARRINHO
+══════════════════════════════ -->
+<div id="screen-cart" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('menu')">←</button>
+    <div class="topbar-logo">🛒 Carrinho</div>
+    <button class="icon-btn" onclick="clearCart()">🗑️</button>
+  </div>
+  <div class="cart-list" id="cart-list">
+    <div class="cart-item">
+      <div class="cart-item-img">🫓</div>
+      <div class="cart-item-body">
+        <div class="cart-item-name">Tapioca Carne de Sol</div>
+        <div class="cart-item-opt">Carne + Queijo · Ovo caipira</div>
+        <div class="cart-item-price">R$ 20,90</div>
+      </div>
+      <div class="mini-qty">
+        <button class="mini-btn">+</button>
+        <div class="mini-num">1</div>
+        <button class="mini-btn">−</button>
+      </div>
+      <button class="remove-btn">✕</button>
+    </div>
+    <div class="cart-item">
+      <div class="cart-item-img">🥭</div>
+      <div class="cart-item-body">
+        <div class="cart-item-name">Suco de Umbu</div>
+        <div class="cart-item-opt">300ml · Natural</div>
+        <div class="cart-item-price">R$ 9,90</div>
+      </div>
+      <div class="mini-qty">
+        <button class="mini-btn">+</button>
+        <div class="mini-num">1</div>
+        <button class="mini-btn">−</button>
+      </div>
+      <button class="remove-btn">✕</button>
+    </div>
+  </div>
+  <div class="cart-summary">
+    <div class="coupon-row">
+      <input placeholder="Código de cupom ou promoção" id="coupon-input">
+      <button class="btn btn-outline btn-sm" onclick="aplicarCupom()">Aplicar</button>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-row"><span>Subtotal</span><span>R$ 30,80</span></div>
+    <div class="summary-row"><span>Taxa de entrega</span><span>R$ 4,99</span></div>
+    <div class="summary-row" id="discount-row" style="display:none;color:var(--green)"><span>Desconto cupom</span><span id="discount-val">−R$ 0,00</span></div>
+    <div class="summary-row" style="font-size:11px;color:var(--text-dim)"><span>+31 pontos fidelidade</span><span>⭐</span></div>
+    <div class="divider"></div>
+    <div class="summary-row total"><span>Total</span><span id="cart-total">R$ 35,79</span></div>
+    <button class="btn btn-primary btn-full" style="margin-top:14px" onclick="go('checkout')">Ir para Pagamento →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 7: CHECKOUT
+══════════════════════════════ -->
+<div id="screen-checkout" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('cart')">←</button>
+    <div class="topbar-title">Pagamento</div>
+  </div>
+  <div class="checkout-content">
+    <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:12px">Tipo de entrega</div>
+    <div class="delivery-toggle">
+      <button class="delivery-opt active" onclick="toggleDelivery(this,'entrega')">🛵 Delivery</button>
+      <button class="delivery-opt" onclick="toggleDelivery(this,'retirada')">🏃 Pick-up</button>
+      <button class="delivery-opt" onclick="toggleDelivery(this,'mesa')">🪑 Na Mesa</button>
+    </div>
+    <div id="address-section">
+      <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:12px">Endereço de entrega</div>
+      <div class="form-group"><label>CEP</label><input placeholder="50000-000" id="cep"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Rua</label><input placeholder="Rua do Sol"></div>
+        <div class="form-group"><label>Número</label><input placeholder="42"></div>
+      </div>
+      <div class="form-group"><label>Complemento</label><input placeholder="Apto, bloco..."></div>
+      <div class="divider"></div>
+    </div>
+    <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:12px">Forma de Pagamento</div>
+    <div class="payment-methods">
+      <div class="pay-method selected" onclick="selPay(this)"><div class="pay-method-icon">💳</div><div class="pay-method-label">Crédito</div></div>
+      <div class="pay-method" onclick="selPay(this)"><div class="pay-method-icon">💳</div><div class="pay-method-label">Débito</div></div>
+      <div class="pay-method" onclick="selPay(this)"><div class="pay-method-icon">📱</div><div class="pay-method-label">PIX</div></div>
+      <div class="pay-method" onclick="selPay(this)"><div class="pay-method-icon">💵</div><div class="pay-method-label">Dinheiro</div></div>
+    </div>
+    <div class="card-form" id="card-form">
+      <div class="card-form-title">Dados do cartão</div>
+      <div class="form-group"><label>Número</label><input placeholder="0000 0000 0000 0000" id="card-num" maxlength="19"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Validade</label><input placeholder="MM/AA"></div>
+        <div class="form-group"><label>CVV</label><input placeholder="123" maxlength="3"></div>
+      </div>
+      <div class="form-group"><label>Nome no cartão</label><input placeholder="CARLOS SILVA"></div>
+    </div>
+    <div class="lgpd-notice">
+      <h4>🔒 Pagamento via Gateway Externo</h4>
+      <p>Os dados do seu cartão são processados diretamente pela operadora parceira com criptografia SSL/TLS. A Raízes do Nordeste <strong>não armazena</strong> dados completos do cartão (PCI DSS). Ao confirmar, você autoriza a cobrança de <strong>R$ 35,79</strong>.</p>
+    </div>
+    <div class="summary-row total" style="margin-bottom:14px"><span>Total a pagar</span><span>R$ 35,79</span></div>
+    <button class="btn btn-primary btn-full" onclick="processarPagamento()">🔐 Confirmar e Pagar — R$ 35,79</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 8: PROCESSANDO
+══════════════════════════════ -->
+<div id="screen-processing" class="screen">
+  <div class="proc-icon" id="proc-icon">⏳</div>
+  <div class="proc-title" id="proc-title">Processando pagamento…</div>
+  <div class="proc-sub" id="proc-sub">Aguarde. Comunicando com a operadora.</div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+  <p style="font-size:11px;color:var(--text-dim)">Não feche esta tela</p>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 9: STATUS
+══════════════════════════════ -->
+<div id="screen-status" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('home')">🏠</button>
+    <div class="topbar-title">Seu Pedido</div>
+    <button class="icon-btn">📋</button>
+  </div>
+  <div class="status-content">
+    <div class="order-id">Pedido <strong>#RDN-2026-3847</strong> · Boa Viagem, Recife</div>
+    <div class="eta-card">
+      <div class="eta-label">Previsão de chegada</div>
+      <div class="eta-time">~28 min</div>
+      <div class="eta-label">Atualizado em tempo real</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="t-dot done">✓</div><div class="t-label">Pedido recebido</div><div class="t-sub">14:32 — Confirmado pelo sistema</div></div>
+      <div class="timeline-item"><div class="t-dot done">✓</div><div class="t-label">Pagamento aprovado</div><div class="t-sub">14:32 — R$ 35,79 via Cartão de Crédito (Gateway)</div></div>
+      <div class="timeline-item"><div class="t-dot active">🔥</div><div class="t-label">Em preparo na cozinha</div><div class="t-sub">14:34 — Seu cuscuz e tapioca sendo preparados</div></div>
+      <div class="timeline-item t-dim"><div class="t-dot">🛵</div><div class="t-label">Saiu para entrega</div><div class="t-sub">Aguardando…</div></div>
+      <div class="timeline-item t-dim"><div class="t-dot">🏠</div><div class="t-label">Entregue / Retirado</div><div class="t-sub">Aguardando…</div></div>
+    </div>
+    <div class="divider" style="margin-top:20px"></div>
+    <div class="card" style="padding:14px;margin-top:14px">
+      <div class="section-title" style="font-size:15px;margin-bottom:10px">Resumo</div>
+      <div class="summary-row"><span>Tapioca Carne de Sol</span><span>R$ 20,90</span></div>
+      <div class="summary-row"><span>Suco de Umbu</span><span>R$ 9,90</span></div>
+      <div class="summary-row"><span>Taxa de entrega</span><span>R$ 4,99</span></div>
+      <div class="divider"></div>
+      <div class="summary-row total"><span>Total pago</span><span>R$ 35,79</span></div>
+    </div>
+    <button class="btn btn-secondary btn-full" style="margin-top:14px">📞 Falar com a loja</button>
+    <button class="btn btn-outline btn-full" style="margin-top:10px" onclick="go('home')">Fazer novo pedido</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 10: FIDELIDADE
+══════════════════════════════ -->
+<div id="screen-loyalty" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="topbar-title">Fidelidade</div>
+  </div>
+  <div class="loyalty-card">
+    <div style="font-size:11px;color:rgba(232,168,32,.7);margin-bottom:4px;font-weight:700;letter-spacing:1px;text-transform:uppercase">Seus pontos</div>
+    <div class="loyalty-pts">1.480</div>
+    <div class="loyalty-level">⭐ Nível Ouro</div>
+    <div class="loyalty-progress"><div class="loyalty-fill"></div></div>
+    <div class="loyalty-next">Faltam 520 pontos para o nível Diamante 💎</div>
+  </div>
+  <div style="padding:14px 20px">
+    <div class="card" style="padding:14px;margin-bottom:14px">
+      <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:10px">Como ganhar pontos</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text-dim)">
+        <div>🫓 <b>10 pts</b> por R$ 1 gasto em pedidos</div>
+        <div>🎂 <b>200 pts</b> no seu aniversário</div>
+        <div>👥 <b>300 pts</b> por indicar um amigo</div>
+        <div>☀️ <b>Pontos em dobro</b> nas manhãs (6h–10h)</div>
+        <div>🌻 <b>Pontos extras</b> em produtos sazonais juninos</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 20px 8px"><div class="section-title" style="margin-bottom:10px">Trocar Pontos</div></div>
+  <div class="rewards-list">
+    <div class="reward-item"><div class="reward-icon">🫓</div><div class="reward-body"><div class="reward-name">Tapioca Grátis</div><div class="reward-cost">300 pontos</div></div><button class="reward-btn" onclick="resgatar('Tapioca')">Resgatar</button></div>
+    <div class="reward-item"><div class="reward-icon">🥭</div><div class="reward-body"><div class="reward-name">Suco Regional Grátis</div><div class="reward-cost">200 pontos</div></div><button class="reward-btn" onclick="resgatar('Suco')">Resgatar</button></div>
+    <div class="reward-item"><div class="reward-icon">☕</div><div class="reward-body"><div class="reward-name">Café da Manhã Completo</div><div class="reward-cost">800 pontos</div></div><button class="reward-btn" onclick="resgatar('Café da Manhã')">Resgatar</button></div>
+    <div class="reward-item"><div class="reward-icon">💰</div><div class="reward-body"><div class="reward-name">R$ 10 de desconto</div><div class="reward-cost">1.000 pontos</div></div><button class="reward-btn" onclick="resgatar('R$10')">Resgatar</button></div>
+    <div class="reward-item"><div class="reward-icon">🎁</div><div class="reward-body"><div class="reward-name">Kit Raízes Exclusivo</div><div class="reward-cost">2.000 pontos</div></div><button class="reward-btn" disabled>Resgatar</button></div>
+  </div>
+  <div style="height:20px"></div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 11: PERFIL
+══════════════════════════════ -->
+<div id="screen-profile" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('home')">←</button>
+    <div class="topbar-title">Meu Perfil</div>
+  </div>
+  <div class="profile-header">
+    <div class="profile-avatar">🌵</div>
+    <div class="profile-name" id="profile-name">Carlos Silva</div>
+    <div class="profile-email">Carlos.silva@email.com</div>
+    <div style="margin-top:10px"><span class="tag tag-orange" style="color:#a07010">⭐ Nível Ouro · 1.480 pts</span></div>
+  </div>
+  <div class="profile-menu">
+    <div class="profile-item" onclick="go('status')"><div class="profile-item-icon">📋</div><div class="profile-item-label">Meus Pedidos</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item" onclick="go('loyalty')"><div class="profile-item-icon">⭐</div><div class="profile-item-label">Programa de Fidelidade</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item"><div class="profile-item-icon">📍</div><div class="profile-item-label">Endereços Salvos</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item"><div class="profile-item-icon">💳</div><div class="profile-item-label">Formas de Pagamento</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item" onclick="go('privacy')"><div class="profile-item-icon">🔐</div><div class="profile-item-label">Privacidade e LGPD</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item"><div class="profile-item-icon">🔔</div><div class="profile-item-label">Notificações</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item"><div class="profile-item-icon">❓</div><div class="profile-item-label">Ajuda e Suporte</div><div class="profile-item-arrow">›</div></div>
+    <div class="profile-item" onclick="fazerLogout()"><div class="profile-item-icon">🚪</div><div class="profile-item-label" style="color:var(--accent)">Sair da conta</div><div class="profile-item-arrow" style="color:var(--accent)">›</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 12: PRIVACIDADE
+══════════════════════════════ -->
+<div id="screen-privacy" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="go('profile')">←</button>
+    <div class="topbar-title">Privacidade — LGPD</div>
+  </div>
+  <div class="privacy-content">
+    <div class="privacy-section">
+      <h3>📋 Seus Direitos (Lei 13.709/2018)</h3>
+      <p>Conforme a LGPD, você tem direito a: confirmar a existência de tratamento, acessar seus dados, corrigir dados incompletos, solicitar anonimização ou eliminação, revogar consentimento e ser informado sobre compartilhamentos a qualquer momento.</p>
+    </div>
+    <div class="privacy-section">
+      <h3>⚙️ Gerenciar Consentimentos</h3>
+      <div class="privacy-toggle-row"><div><div style="font-size:13px;font-weight:600">Localização</div><div style="font-size:11px;color:var(--text-dim)">Para sugestão de unidades próximas</div></div><label class="toggle"><input type="checkbox" checked onchange="toggleConsent(this,'Localização')"><span class="toggle-slider"></span></label></div>
+      <div class="privacy-toggle-row"><div><div style="font-size:13px;font-weight:600">E-mails promocionais</div><div style="font-size:11px;color:var(--text-dim)">Promoções e novidades da rede</div></div><label class="toggle"><input type="checkbox" onchange="toggleConsent(this,'E-mails')"><span class="toggle-slider"></span></label></div>
+      <div class="privacy-toggle-row"><div><div style="font-size:13px;font-weight:600">Notificações push</div><div style="font-size:11px;color:var(--text-dim)">Status de pedidos e alertas</div></div><label class="toggle"><input type="checkbox" checked onchange="toggleConsent(this,'Notificações')"><span class="toggle-slider"></span></label></div>
+      <div class="privacy-toggle-row"><div><div style="font-size:13px;font-weight:600">Análise de perfil</div><div style="font-size:11px;color:var(--text-dim)">Personalização do programa de fidelidade</div></div><label class="toggle"><input type="checkbox" checked onchange="toggleConsent(this,'Analytics')"><span class="toggle-slider"></span></label></div>
+    </div>
+    <div class="privacy-section">
+      <h3>📤 Meus Dados</h3>
+      <button class="btn btn-secondary btn-full" style="margin-bottom:10px;font-size:13px" onclick="showToast('📤 Solicitação de exportação enviada. Prazo: 15 dias úteis.')">Exportar meus dados</button>
+      <button class="btn btn-full" style="background:var(--accent);color:#fff;font-size:13px" onclick="confirmarExclusao()">Excluir minha conta e dados</button>
+      <p style="margin-top:10px;font-size:11px">A exclusão é irreversível. Dados removidos em até 15 dias úteis conforme LGPD.</p>
+    </div>
+    <div class="privacy-section">
+      <h3>📧 Encarregado de Dados (DPO)</h3>
+      <p><b>privacidade@raizesdnordeste.com.br</b><br>Para dúvidas sobre tratamento de dados pessoais.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TELA 13: TOTEM
+══════════════════════════════ -->
+<div id="screen-totem" class="screen">
+  <div class="totem-header">
+    <div style="font-size:32px;margin-bottom:6px">🌵</div>
+    <div class="totem-logo">Raízes do <span>Nordeste</span></div>
+    <div class="totem-sub">Totem de Autoatendimento — Boa Viagem</div>
+  </div>
+  <div class="totem-content">
+    <div class="totem-title">Toque para começar seu pedido 👇</div>
+    <div class="totem-cats">
+      <div class="totem-cat" onclick="go('menu')"><div class="totem-cat-icon">🫓</div><div class="totem-cat-name">Tapiocas</div><div class="totem-cat-count">8 opções</div></div>
+      <div class="totem-cat" onclick="go('menu')"><div class="totem-cat-icon">🌽</div><div class="totem-cat-name">Cuscuz</div><div class="totem-cat-count">5 opções</div></div>
+      <div class="totem-cat" onclick="go('menu')"><div class="totem-cat-icon">☕</div><div class="totem-cat-name">Cafés</div><div class="totem-cat-count">4 opções</div></div>
+      <div class="totem-cat" onclick="go('menu')"><div class="totem-cat-icon">🥭</div><div class="totem-cat-name">Sucos</div><div class="totem-cat-count">6 opções</div></div>
+    </div>
+    <div class="totem-actions">
+      <button class="totem-action-btn" onclick="go('menu')"><div class="totem-action-icon">📋</div><div><div class="totem-action-label">Ver Cardápio Completo</div><div class="totem-action-sub">Explore todos os produtos disponíveis hoje</div></div></button>
+      <button class="totem-action-btn" onclick="go('auth')"><div class="totem-action-icon">⭐</div><div><div class="totem-action-label">Entrar com Conta de Fidelidade</div><div class="totem-action-sub">Acumule e use seus pontos</div></div></button>
+      <button class="totem-action-btn" onclick="go('menu')"><div class="totem-action-icon">🏃</div><div><div class="totem-action-label">Pedir sem Cadastro (Pick-up)</div><div class="totem-action-sub">Rápido e sem espera</div></div></button>
+    </div>
+    <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,.06);border-radius:var(--radius-sm);border:1px solid rgba(232,168,32,.15)">
+      <p style="font-size:11px;color:rgba(255,255,255,.5);text-align:center">🔐 Ao continuar, você concorda com nossa Política de Privacidade (LGPD). Toque em qualquer opção acima para ver o aviso completo.</p>
+    </div>
+  </div>
+  <div style="padding:14px 20px;border-top:1px solid rgba(255,255,255,.1)">
+    <button class="btn btn-secondary btn-full" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.1);font-size:13px" onclick="go('home')">← Voltar ao App</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3 id="modal-title">Confirmar</h3>
+    <p id="modal-body">Mensagem</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-secondary" style="flex:1" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" style="flex:1" id="modal-confirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAV ──
+let cartCount = 2, qty = 1;
+
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + id);
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── LGPD ──
+function aceitarLGPD() {
+  if (!document.getElementById('chk1').checked) { showToast('⚠️ Aceite os Termos de Uso para continuar', true); return; }
+  go('auth');
+}
+
+// ── AUTH ──
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.getElementById('tab-login').style.display = tab==='login'?'block':'none';
+  document.getElementById('tab-register').style.display = tab==='register'?'block':'none';
+}
+
+function fazerLogin() {
+  const email = document.getElementById('login-email').value;
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showToast('⚠️ Preencha e-mail e senha', true); return; }
+  if (!email.includes('@')) { showToast('⚠️ E-mail inválido', true); return; }
+  if (pass.length < 6) { showToast('⚠️ Senha incorreta (mín. 6 caracteres)', true); return; }
+  showToast('✅ Login realizado!');
+  setTimeout(() => go('home'), 800);
+}
+
+function loginSocial(p) { showToast('Conectando com '+p+'…'); setTimeout(() => go('home'), 1000); }
+
+function fazerCadastro() {
+  const nome  = document.getElementById('reg-nome').value;
+  const email = document.getElementById('reg-email').value;
+  const pass  = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  const terms = document.getElementById('reg-terms').checked;
+  if (!nome || !email) { showToast('⚠️ Preencha nome e e-mail', true); return; }
+  if (!terms) { showToast('⚠️ Aceite os Termos de Uso (LGPD)', true); return; }
+  if (pass !== pass2) { showToast('⚠️ Senhas não coincidem', true); return; }
+  if (pass.length < 6) { showToast('⚠️ Senha muito curta (mín. 6)', true); return; }
+  document.getElementById('hero-name').textContent = nome;
+  document.getElementById('profile-name').textContent = nome;
+  showToast('✅ Conta criada! Bem-vindo(a)!');
+  setTimeout(() => go('home'), 800);
+}
+
+// ── HOME ──
+function selUnit(el, name) {
+  document.querySelectorAll('.unit-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  showToast('📍 ' + name + ' selecionada');
+}
+function selCanal(el) {
+  document.querySelectorAll('.canal-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── MENU ──
+function filterCat(el) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+function addCart(e, name, price) {
+  e.stopPropagation();
+  cartCount++;
+  document.querySelectorAll('#cart-badge,.badge').forEach(b => b.textContent = cartCount);
+  showToast('✅ ' + name + ' adicionado!');
+}
+
+// ── PRODUCT ──
+function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qty-val').textContent = qty; }
+function toggleOpt(el) { el.parentElement.querySelectorAll('.option-item').forEach(s => s.classList.remove('selected')); el.classList.add('selected'); }
+function addFromDetail() {
+  cartCount++;
+  document.querySelectorAll('#cart-badge,.badge').forEach(b => b.textContent = cartCount);
+  showToast('✅ Tapioca adicionada ao carrinho!');
+  go('cart');
+}
+
+// ── CART ──
+function clearCart() {
+  showModal('Limpar carrinho', 'Deseja remover todos os itens?', () => {
+    document.getElementById('cart-list').innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><div class="empty-title">Carrinho vazio</div><div class="empty-sub">Adicione itens do cardápio</div><button class="btn btn-primary" style="margin-top:18px" onclick="go('menu')">Ver Cardápio</button></div>`;
+    cartCount = 0; document.querySelectorAll('#cart-badge,.badge').forEach(b => b.textContent = 0);
+    showToast('Carrinho esvaziado');
+  });
+}
+function aplicarCupom() {
+  const code = document.getElementById('coupon-input').value.toUpperCase();
+  if (code === 'NORDESTE10') {
+    document.getElementById('discount-row').style.display = 'flex';
+    document.getElementById('discount-val').textContent = '− R$ 3,58';
+    document.getElementById('cart-total').textContent = 'R$ 32,21';
+    showToast('✅ Cupom NORDESTE10 aplicado!');
+  } else { showToast('⚠️ Cupom inválido ou expirado', true); }
+}
+
+// ── CHECKOUT ──
+function toggleDelivery(el, mode) {
+  document.querySelectorAll('.delivery-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('address-section').style.display = mode==='entrega'?'block':'none';
+}
+function selPay(el) {
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  const l = el.querySelector('.pay-method-label').textContent;
+  document.getElementById('card-form').style.display = (l.includes('Créd')||l.includes('Déb'))?'block':'none';
+}
+function processarPagamento() {
+  const num = document.getElementById('card-num').value.replace(/\s/g,'');
+  if (document.getElementById('card-form').style.display !== 'none') {
+    if (num.length < 13) { showToast('⚠️ Número do cartão inválido', true); return; }
+  }
+  go('processing');
+  const fill = document.getElementById('prog-fill');
+  fill.style.width='0'; fill.style.transition='none';
+  setTimeout(() => { fill.style.transition='width 2.8s ease-in-out'; fill.style.width='100%'; }, 50);
+  setTimeout(() => {
+    document.getElementById('proc-icon').textContent = '✅';
+    document.getElementById('proc-title').textContent = 'Pagamento aprovado!';
+    document.getElementById('proc-sub').textContent = 'Seu pedido foi enviado para a cozinha 🔥';
+    setTimeout(() => go('status'), 1200);
+  }, 3100);
+}
+
+// ── LOYALTY ──
+function resgatar(item) {
+  showModal('Resgatar recompensa', 'Confirmar resgate: ' + item + '?', () => showToast('✅ ' + item + ' resgatado!'));
+}
+
+// ── PROFILE ──
+function fazerLogout() {
+  showModal('Sair da conta', 'Tem certeza que deseja sair?', () => { go('auth'); showToast('Até logo! 🌵'); });
+}
+
+// ── PRIVACY ──
+function toggleConsent(el, label) { showToast(label + (el.checked ? ' ativado' : ' desativado')); }
+function confirmarExclusao() {
+  showModal('⚠️ Excluir conta', 'Esta ação é irreversível. Todos os seus dados e pontos serão removidos em até 15 dias úteis.', () => {
+    showToast('Conta marcada para exclusão.');
+    setTimeout(() => go('splash'), 1500);
+  });
+  document.getElementById('modal-confirm').style.background = 'var(--accent)';
+}
+
+// ── MODAL ──
+function showModal(title, body, onConfirm) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = body;
+  document.getElementById('modal-confirm').style.background = '';
+  document.getElementById('modal-confirm').onclick = () => { closeModal(); onConfirm(); };
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+
+// ── TOAST ──
+function showToast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast' + (isError?' error':'');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// card format
+document.addEventListener('input', e => {
+  if (e.target.id==='card-num') {
+    let v = e.target.value.replace(/\D/g,'').substring(0,16);
+    e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
+  }
+});
+</script>
+</body>
+</html>
